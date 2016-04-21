@@ -2,6 +2,17 @@
 
 Spreading parens <3 with Python
 
+Look at that CUTE logo by [Karen Rustad Tölva](https://twitter.com/whoisaldeka):
+![cuddles](img/cuddles-transparent-small.png)
+
+### Content
+
+* [About Lisp](#about-lisp)
+* [Intro to Hy](#intro-to-hy)
+* [Basic data structures](#basic-data-structures)
+* [Hy under the hood](#hy-under-the-hood)
+* [Other features](#other-features)
+
 ### About Lisp
 
 Formely LISP for "LISt Processor".
@@ -18,7 +29,7 @@ Today several Lisp dialects are used for general purpose (web development, data 
 
 ### Intro to Hy
 
-[Hy]((https://github.com/hylang/hy)) is a Lisp dialect that converts its structure to Python, allowing to explore Lisp within leaving the comfort of Python.
+[Hy](https://github.com/hylang/hy) is a Lisp dialect that converts its structure to Python, allowing to explore Lisp within leaving the comfort of Python.
 
 Willing to give it a go? You can [try Hy](https://try-hy.appspot.com/) in your browser!
 It's as easy as `(print "hello world")`.
@@ -30,6 +41,7 @@ to
 ```
 (/ (+ 3.5 5.1 4.6) 3)
 ```
+Now use the [Quickstart](http://docs.hylang.org/en/latest/quickstart.html) guide to install Hy in a virtual environment and write your first Hy programme in a `.hy` file!
 
 ### Basic data structures
 
