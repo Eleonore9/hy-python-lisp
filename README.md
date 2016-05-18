@@ -67,6 +67,11 @@ Count is 9
 Example 2: function definition
 
 ```
+(defn read-book [ebook]
+  (with [f (open ebook)]
+    (let [cleaned (.replace (.replace (.strip f) "." "") "," " ")
+	      content (.split (.split cleaned "\n") " ")]
+		  content)))
 ```
 
 ### A Hy programme
