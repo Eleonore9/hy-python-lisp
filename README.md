@@ -45,6 +45,8 @@ Now use the [Quickstart](http://docs.hylang.org/en/latest/quickstart.html) guide
 
 In Hy you have access to all of Python data structures and the standard library.
 
+Example 1: for loop
+
 ```
 => (for [i (range 10)]
 	(print (+ "Count is " (str i))))
@@ -60,6 +62,11 @@ Count is 7
 Count is 8
 Count is 9
 
+```
+
+Example 2: function definition
+
+```
 ```
 
 ### A Hy programme
