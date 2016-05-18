@@ -46,7 +46,20 @@ Now use the [Quickstart](http://docs.hylang.org/en/latest/quickstart.html) guide
 In Hy you have access to all of Python data structures and the standard library.
 
 ```
-(range 10)
+=> (for [i (range 10)]
+	(print (+ "Count is " (str i))))
+
+Count is 0
+Count is 1
+Count is 2
+Count is 3
+Count is 4
+Count is 5
+Count is 6
+Count is 7
+Count is 8
+Count is 9
+
 ```
 
 ### A Hy programme
