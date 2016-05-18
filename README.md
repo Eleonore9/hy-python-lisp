@@ -9,7 +9,7 @@ Look at that CUTE logo by [Karen Rustad Tölva](https://twitter.com/whoisaldeka)
 
 * [About Lisp](#about-lisp)
 * [Intro to Hy](#intro-to-hy)
-* [Basic data structures](#basic-data-structures)
+* [A Hy programme](#a-hy-programme)
 * [Hy under the hood](#hy-under-the-hood)
 * [Other features](#other-features)
 
@@ -43,7 +43,13 @@ to
 ```
 Now use the [Quickstart](http://docs.hylang.org/en/latest/quickstart.html) guide to install Hy in a virtual environment and write your first Hy programme in a `.hy` file!
 
-### Basic data structures
+In Hy you have access to all of Python data structures and the standard library.
+
+```
+(range 10)
+```
+
+### A Hy programme
 
 
 ### Hy under the hood
