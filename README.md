@@ -67,12 +67,25 @@ Count is 9
 Example 2: function definition
 
 ```
-(defn read-book [ebook]
-  (with [f (open ebook)]
-    (let [cleaned (.replace (.replace (.strip f) "." "") "," " ")
-	      content (.split (.split cleaned "\n") " ")]
-		  content)))
+(defn fizzbuzz [num]
+  (for [n (range 1 num)]
+    (cond
+     [(= 0 (% n 15)) (print n "fizzbuzz")]
+     [(= 0 (% n 3)) (print n "fizz")]
+     [(= 0 (% n 5)) (print n "buzz")])))
 ```
+```
+=> (fizzbuzz 16)
+3 fizz
+5 buzz
+6 fizz
+9 fizz
+10 buzz
+12 fizz
+15 fizzbuzz
+```
+
+See [try_hy.hy](/try_hy.hy)
 
 ### A Hy programme
 

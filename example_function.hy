@@ -1,13 +1,19 @@
 #! /usr/bin/env hy
 
-(defn read-book [ebook]
-  (with [f (open ebook)]
-        (let [text (.read f)
-              paragraphs (.split text "\n")
-              words (.split paragraphs " ")]
-          words)))
+(import os)
 
-(read-book "data/test_ebook.txt")
+;; (defn read-book [ebook]
+;;   (with [f (open ebook)]
+;;         (let [text (.read f)
+;;               paragraphs (.split text "\n")
+;;               words (.split paragraphs " ")]
+;;           words)))
 
-;; (with [f (open "data/test_ebook.txt")]
-;;   (print (.read f)))
+(defn list-text-files [dirpath]
+      (list-comp files
+                 (files (map (fn [f] (when (.endswith f ".txt")
+                                       (+ dirpath f)))
+                             (os.listdir dirpath)))))
+
+(defn read-book [text-file]
+  (.read (open text-file)))
