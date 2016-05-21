@@ -90,3 +90,4 @@ ____
 * [Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) wikipedia page
 * [Hy's docs](http://docs.hylang.org/en/latest/)
 * [Hy's source code](https://github.com/hylang/hy)
+* [Podcast.__init__ episode 23](http://pythonpodcast.com/hylang-developers.html)
