@@ -85,10 +85,13 @@ Example 2: function definition
 15 fizzbuzz
 ```
 
-See [try_hy.hy](/try_hy.hy)
+See [try\_hy.hy](/try_hy.hy)
 
 ### A Hy programme
 
+Analyse the content of ebooks from the [Gutenberg project]().
+
+See [text\_analysis.hy](/text_analysis.hy)
 
 ### Hy under the hood
 
@@ -102,5 +105,6 @@ ____
 
 * [Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) wikipedia page
 * [Hy's docs](http://docs.hylang.org/en/latest/)
+* [More docs](https://github.com/hylang/hy/blob/master/docs/language/api.rst)
 * [Hy's source code](https://github.com/hylang/hy)
-* [Podcast.__init__ episode 23](http://pythonpodcast.com/hylang-developers.html)
+* [Podcast./__init/__ episode 23](http://pythonpodcast.com/hylang-developers.html)
