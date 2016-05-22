@@ -90,7 +90,7 @@ See [try\_hy.hy](/try_hy.hy)
 
 ### A Hy programme
 
-Analyse the content of ebooks from the [Gutenberg project]().
+Analyse the content of texts, using free ebooks from the [Gutenberg project](https://www.gutenberg.org/wiki/Main_Page).
 
 See [text\_analysis.hy](/text_analysis.hy)
 
@@ -117,7 +117,7 @@ Here's what the analysis function looks like:
 ```
 
 The first step is creating a list of all the text files in the directory:
-```
+```Hy
 (defn list-text-files
   [dirpath]
   "Takes in a directory path and returns
@@ -132,6 +132,15 @@ This function uses list comprehension with `list-comp`. The second part selects 
 It then maps over the list of text file to apply the steps of the analysis on each text file.
 This is done with a threading macro and more precisely the "thread first" macro, represented by a single arrow `->`. It's the equivalent of several level of nesting but is easier to read.
 Each file `f` is read, cleaned, has its stopwords removed and then summarised.
+
+A main function can be defined to be called from the command line with the arguments provided, by using `defmain`:
+```Hy
+(defmain [&rest args]
+  (-> args
+      (get 1)
+      analyse-texts
+      pprint.pprint))
+```
 
 Here's the output:
 ```
