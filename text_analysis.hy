@@ -1,6 +1,6 @@
 #! /usr/bin/env hy
 
-(import os re [collections [Counter]])
+(import os re pprint [collections [Counter]])
 
 (setv stop-words
       ["the" "that" "to" "as" "there" "has" "and" "or" "is" "not"
@@ -10,11 +10,10 @@
   [dirpath]
   "Takes in a directory path and returns
    a list of text files in that directory."
-  (list-comp files
-             (files (map
-                     (fn [f] (when (.endswith f ".txt")
-                               (+ dirpath f)))
-                     (os.listdir dirpath)))))
+  (list-comp (os.path.join dirpath files) ;; get the full file path
+             (files (list (filter ;; keep files w/ .txt extension
+                           (fn [f] (.endswith f ".txt"))
+                           (os.listdir dirpath))))))
 
 (defn read-text
   [file-path]
@@ -39,20 +38,27 @@
                                   list-of-words)))))
 
 (defn summarise-text
-  [list-of-words]
+  [list-of-words filename]
   "Takes in a list of words. Returns
    the number of words and the 5 most
    frequent words in a dictionary."
-  {(keyword "total-words") (len list-of-words)
-   (keyword "most-frequent") (.most_common (Counter list-of-words) 5)})
+  {"filename" filename
+   "total-words" (len list-of-words)
+   "most-frequent" (.most_common (Counter list-of-words) 5)})
+
+(defn analyse-texts [dirpath]
+  (setv text-files (list-text-files dirpath))
+  (list (map (fn [f]
+               (setv filename f)
+               (-> f
+                   read-text
+                   clean-text
+                   remove-stopwords
+                   (summarise-text filename)))
+             text-files)))
 
 (defmain [&rest args]
-  (let [text-files (list-text-files (str (get args 1)))]
-    (print (get args 1))
-    ;; (map (fn [f]
-    ;;        (-> f
-    ;;            read-text
-    ;;            clean-text
-    ;;            summarise-text))
-    ;;      text-files)
-    ))
+  (-> args
+      (get 1)
+      analyse-texts
+      pprint.pprint))

@@ -66,7 +66,7 @@ Count is 9
 
 Example 2: function definition
 
-```
+```Hy
 (defn fizzbuzz [num]
   (for [n (range 1 num)]
     (cond
@@ -74,7 +74,7 @@ Example 2: function definition
      [(= 0 (% n 3)) (print n "fizz")]
      [(= 0 (% n 5)) (print n "buzz")])))
 ```
-```
+```Hy
 => (fizzbuzz 16)
 3 fizz
 5 buzz
@@ -87,11 +87,39 @@ Example 2: function definition
 
 See [try\_hy.hy](/try_hy.hy)
 
+
 ### A Hy programme
 
 Analyse the content of ebooks from the [Gutenberg project]().
 
 See [text\_analysis.hy](/text_analysis.hy)
+
+For this script I need to import the modules `os`, `re`, `pprint` and the method `Counter` from the module `collections`. Here's what a Hy import statement looks like:
+```
+(import os re pprint [collections [Counter]])
+```
+
+This programme when called from the command line `./text\_analysis.hy "data/"` runs an analysis for all text files in the `"data/"` directory.
+
+Here's what the analysis function looks like:
+
+```Hy
+(defn analyse-texts [dirpath]
+  (setv text-files (list-text-files dirpath))
+  (list (map (fn [f]
+               (setv filename f)
+               (-> f
+                   read-text
+                   clean-text
+                   remove-stopwords
+                   (summarise-text filename)))
+             text-files)))
+```
+
+The first step is creating a list of all the text files in the directory.
+It then maps over the list of text file to apply the steps of the analysis on each text file.
+This is done with a threading macro and more precisely the "thread first" macro, represented by a single arrow `->`. It's the equivalent of several level of nesting but is easier to read.
+Each file `f` is read, cleaned, has its stopwords removed and then summarised.
 
 ### Hy under the hood
 
@@ -107,4 +135,4 @@ ____
 * [Hy's docs](http://docs.hylang.org/en/latest/)
 * [More docs](https://github.com/hylang/hy/blob/master/docs/language/api.rst)
 * [Hy's source code](https://github.com/hylang/hy)
-* [Podcast./__init/__ episode 23](http://pythonpodcast.com/hylang-developers.html)
+* [Podcast.\_\_init\_\_ episode 23](http://pythonpodcast.com/hylang-developers.html)
