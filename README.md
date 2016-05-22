@@ -116,10 +116,49 @@ Here's what the analysis function looks like:
              text-files)))
 ```
 
-The first step is creating a list of all the text files in the directory.
+The first step is creating a list of all the text files in the directory:
+```
+(defn list-text-files
+  [dirpath]
+  "Takes in a directory path and returns
+   a list of text files in that directory."
+  (list-comp (os.path.join dirpath files) ;; get the full file path
+             (files (list (filter ;; keep files w/ .txt extension
+                           (fn [f] (.endswith f ".txt"))
+                           (os.listdir dirpath))))))
+```
+This function uses list comprehension with `list-comp`. The second part selects all items with a ".txt" extension in the directory provided. The first part transforms each element to return the full path for each file.
+
 It then maps over the list of text file to apply the steps of the analysis on each text file.
 This is done with a threading macro and more precisely the "thread first" macro, represented by a single arrow `->`. It's the equivalent of several level of nesting but is easier to read.
 Each file `f` is read, cleaned, has its stopwords removed and then summarised.
+
+Here's the output:
+```
+$~ ./text_analysis.hy "data"
+
+[{u'filename': 'data/gutenberg_peterpan.txt',
+  u'most-frequent': [(u'he', 1054),
+                     (u'she', 598),
+                     (u'they', 585),
+                     (u'had', 508),
+                     (u'you', 484)],
+  u'total-words': 34625},
+ {u'filename': 'data/gutenberg_alice.txt',
+  u'most-frequent': [(u'she', 537),
+                     (u'said', 458),
+                     (u'i', 398),
+                     (u'alice', 385),
+                     (u'you', 359)],
+  u'total-words': 19223},
+ {u'filename': 'data/test_ebook.txt',
+  u'most-frequent': [(u'she', 6),
+                     (u'one', 6),
+                     (u'her', 6),
+                     (u'wendy', 4),
+                     (u'you', 4)],
+  u'total-words': 146}]
+```
 
 ### Hy under the hood
 
