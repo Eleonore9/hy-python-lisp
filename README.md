@@ -184,3 +184,11 @@ ____
 * [More docs](https://github.com/hylang/hy/blob/master/docs/language/api.rst)
 * [Hy's source code](https://github.com/hylang/hy)
 * [Podcast.\_\_init\_\_ episode 23](http://pythonpodcast.com/hylang-developers.html)
+* [Videos and blogposts](https://gist.github.com/Foxboron/4b87b5b85d6c5fc5db6c)
+
+
+**Tools:**
+* [Emacs Hy-mode](https://github.com/hylang/hy-mode)
+* [Vim-hy](https://github.com/hylang/vim-hy)
+* [Code analyser](https://github.com/hylang/hydiomatic)
+* [Hy debugger](https://github.com/hylang/hdb)
