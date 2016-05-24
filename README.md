@@ -12,6 +12,8 @@ Look at that CUTE logo by [Karen Rustad Tölva](https://twitter.com/whoisaldeka)
 * [A Hy programme](#a-hy-programme)
 * [Hy under the hood](#hy-under-the-hood)
 * [Other features](#other-features)
+* [Refs](#references)
+* [Tools](#tools)
 
 ### About Lisp
 
@@ -171,13 +173,60 @@ $~ ./text_analysis.hy "data"
 
 ### Hy under the hood
 
+Hy compiles down to Python bytecode.
+It is first translated to a Python AST and then built into Python bytecode.
+
+**Step 1: tokenise and parse**
+
+The code for this step is defined in [`hy.lex`](https://github.com/hylang/hy/tree/master/hy/lex) and relies heavily on the [rply](https://github.com/alex/rply) project parser.
+The `LexerGenerator` enables to define rules using regular expressions. In this case it's used in [`hy.lex.lexer`](https://github.com/hylang/hy/blob/master/hy/lex/lexer.py)
+which defines the Hy grammar, like:
+```Python
+from rply import LexerGenerator
+
+
+lg = LexerGenerator()
+
+lg.add('LPAREN', r'\(')
+lg.add('RPAREN', r'\)')
+```
+
+The `ParserGenerator` uses the rules defined in the lexer and enables to defines other rules (called production rules) to handle the parsing of the tokens, see [`hy.lex.parser`](https://github.com/hylang/hy/blob/master/hy/lex/parser.py).
+Example of a production rule for handling strings:
+```Python
+@pg.production("string : STRING")
+@set_boundaries # Identify the start/end of the string
+def t_string(p):
+    # remove trailing quote
+    s = p[0].value[:-1]
+    # get the header
+    header, s = s.split('"', 1)
+    # remove unicode marker
+    header = header.replace("u", "")
+    # build python string
+    s = header + '"""' + s + '"""'
+    return uni_hystring(s)
+```
+
+Using the generated lexer and parser, here are examples of returned tokens:
+```Python
+> from hy.lex.lexer import lexer
+> from hy.lex.parser import parser
+
+> parser.parse(lexer.lex("foo"))
+[u'foo']
+
+> parser.parse(lexer.lex("(defn plus-two [n] (+ 2 n))"))
+[(u'defn' u'plus_two' [u'n'] (u'+' 2L u'n'))]
+
+```
 
 ### Other features
 
 
 ____
 
-**References:**
+#### References:
 
 * [Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) wikipedia page
 * [Hy's docs](http://docs.hylang.org/en/latest/)
@@ -187,7 +236,7 @@ ____
 * [Videos and blogposts](https://gist.github.com/Foxboron/4b87b5b85d6c5fc5db6c)
 
 
-**Tools:**
+#### Tools:
 * [Emacs Hy-mode](https://github.com/hylang/hy-mode)
 * [Vim-hy](https://github.com/hylang/vim-hy)
 * [Code analyser](https://github.com/hylang/hydiomatic)
