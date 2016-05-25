@@ -266,7 +266,7 @@ I chose to modify `when` to create `when-int`:
 ```
 (defmacro when-int [value &rest body]
   “Execute `body` when `value` is an integer”
-  `(if (integer? ~value) (do ~body)))
+  `(if (integer? ~value) (do ~@body)))
 ```
 
 Both the thread first (`->`) and thread last (`->>`) macros are also (like for Clojure) defined as macros.
