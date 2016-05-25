@@ -2,7 +2,7 @@
 
 Spreading parens <3 with Python
 
-Look at that CUTE logo by [Karen Rustad Tölva](https://twitter.com/whoisaldeka):
+Look at that CUTE mascot by [Karen Rustad Tölva](https://twitter.com/whoisaldeka):
 ![cuddles](img/cuddles-transparent-small.png)
 
 ### Content
@@ -246,21 +246,74 @@ The `compile_string` method takes the input `HyString`, and returns an `ast.Str(
 
 Once the Python AST is complete, it is compiled to Python bytecode usin the [`eval()`](https://docs.python.org/2/library/functions.html#eval) function.
 
-### Macros
+### Hy Macros
 
+Lisps are well known for the their macros. Lisp's macros enable you to extend the syntax of the language beyond the standard library.
+They convert Lisp forms into different forms before compiling them. And they're considered as a tool to write clear, elegant code by
+hiding away a layer of complexity.
 
+You can define your own macros, but by using a Lisp it's very likely to use pre-defined macros.
+Like other Lisps, Hy enables to define macros by using `defmacro`.
+Here's a simple example for the `when` macro:
+```Hy
+(defmacro when [test &rest body]
+  "Execute `body` when `test` is true"
+  `(if ~test (do ~@body)))
+```
+
+Below is an example of writing your own macro.
+I chose to modify `when` to create `when-int`:
+```
+(defmacro when-int [value &rest body]
+  “Execute `body` when `value` is an integer”
+  `(if (integer? ~value) (do ~body)))
+```
+
+Both the thread first (`->`) and thread last (`->>`) macros are also (like for Clojure) defined as macros.
+Let's have a look at the `->`:
+```Hy
+(defmacro -> [head &rest rest]
+  "Threads the head through the rest of the forms. Inserts
+   head as the second item in the first form of rest. If
+   there are more forms, inserts the first form as the
+   second item in the second form of rest, etc."
+  (setv ret head)
+  (for* [node rest]
+    (if (not (isinstance node HyExpression))
+      (setv node `(~node)))
+    (.insert node 1 ret)
+    (setv ret node))
+  ret)
+```
+
+So far my favourite macro in Hy is the `defmain` as it reproduces the `“if __name__ == '__main__'”`:
+```Hy
+(defmacro defmain [args &rest body]
+  "Write a function named \"main\" and do the if __main__ dance"
+  (let [retval (gensym)
+        mainfn `(fn [~@args]
+                  ~@body)]
+    `(when (= --name-- "__main__")
+       (import sys)
+       (setv ~retval (apply ~mainfn sys.argv))
+       (if (integer? ~retval)
+         (sys.exit ~retval)))))
+```
 ____
 
 #### References:
 
 * [Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) wikipedia page
+* More on [(Common) Lisp](http://www.gigamonkeys.com/book/syntax-and-semantics.html)
 * [Hy's docs](http://docs.hylang.org/en/latest/)
 * [More docs](https://github.com/hylang/hy/blob/master/docs/language/api.rst)
 * [Hy's source code](https://github.com/hylang/hy)
 * [Podcast.\_\_init\_\_ episode 23](http://pythonpodcast.com/hylang-developers.html)
-* [Videos and blogposts](https://gist.github.com/Foxboron/4b87b5b85d6c5fc5db6c)
+* [Videos and blogposts](https://gist.github.com/Eleonore9/6ae886f4ac3a70cbcb28852bc8f6a255)
 * [Compiler](https://en.wikipedia.org/wiki/Compiler) wikipedia page
 * [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) wikipedia page
+* [Lisp's macros](http://www.gigamonkeys.com/book/macros-standard-control-constructs.html)
+* [Writing macros](http://www.braveclojure.com/writing-macros/) in Clojure
 
 #### Tools:
 * [Emacs Hy-mode](https://github.com/hylang/hy-mode)
