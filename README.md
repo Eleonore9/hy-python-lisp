@@ -101,7 +101,9 @@ For this script I need to import the modules `os`, `re`, `pprint` and the method
 (import os re pprint [collections [Counter]])
 ```
 
-This programme when called from the command line `./text\_analysis.hy "data/"` runs an analysis for all text files in the `"data/"` directory.
+This programme when called from the command line
+```./text_analysis.hy "data/"```
+runs an analysis for all text files in the `"data/"` directory.
 
 Here's what the analysis function looks like:
 
@@ -176,7 +178,7 @@ $~ ./text_analysis.hy "data"
 Hy compiles down to Python bytecode.
 It is first translated to a Python AST and then built into Python bytecode.
 
-**Step 1: tokenise and parse**
+**Step 1 and 2: tokenise and parse**
 
 The code for this step is defined in [`hy.lex`](https://github.com/hylang/hy/tree/master/hy/lex) and relies heavily on the [rply](https://github.com/alex/rply) project parser.
 The `LexerGenerator` enables to define rules using regular expressions. In this case it's used in [`hy.lex.lexer`](https://github.com/hylang/hy/blob/master/hy/lex/lexer.py)
@@ -220,6 +222,16 @@ Using the generated lexer and parser, here are examples of returned tokens:
 [(u'defn' u'plus_two' [u'n'] (u'+' 2L u'n'))]
 
 ```
+
+**Step 3: Hy AST -> Python AST**
+
+The method [`HyASTCompiler.compile`](https://github.com/hylang/hy/blob/master/hy/compiler.py#L430) is called on the Hy models.
+It try to get the type by seing if any methods that can build the `type()`. For the example of a string Hy AST is easily mapped to Python AST.
+The `compile_string` method takes the input `HyString`, and returns an `ast.Str()`.
+
+**Step 4: Compilation to Python bytecode**
+
+Once the Python AST is complete.
 
 ### Other features
 
