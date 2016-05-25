@@ -178,10 +178,23 @@ $~ ./text_analysis.hy "data"
 Hy compiles down to Python bytecode.
 It is first translated to a Python AST and then built into Python bytecode.
 
-**Step 1 and 2: tokenise and parse**
+#### Some definitions
+**Basic steps of compilation:**
+Lexing → lexical analysis: breaks up the code into tokens
+Parsing → syntax analysis: convert a sequence of tokens into a parse tree
+Code generation → translate the parse tree into bytecode
+
+**AST** = Abstract Syntax Tree
+It's a tree representation of the abstract syntactic structure of the source code.
+This data structure is used by compilers. It is usually the results of the syntax analysis or parsing step.
+It doesn't contain inessential information and contains extra information about the program.
+
+
+#### Steps of Hy -> Python
+**Lexing and parsing**
 
 The code for this step is defined in [`hy.lex`](https://github.com/hylang/hy/tree/master/hy/lex) and relies heavily on the [rply](https://github.com/alex/rply) project parser.
-The `LexerGenerator` enables to define rules using regular expressions. In this case it's used in [`hy.lex.lexer`](https://github.com/hylang/hy/blob/master/hy/lex/lexer.py)
+The `LexerGenerator` from rply enables to define rules using regular expressions. In this case it's used in [`hy.lex.lexer`](https://github.com/hylang/hy/blob/master/hy/lex/lexer.py)
 which defines the Hy grammar, like:
 ```Python
 from rply import LexerGenerator
@@ -193,7 +206,7 @@ lg.add('LPAREN', r'\(')
 lg.add('RPAREN', r'\)')
 ```
 
-The `ParserGenerator` uses the rules defined in the lexer and enables to defines other rules (called production rules) to handle the parsing of the tokens, see [`hy.lex.parser`](https://github.com/hylang/hy/blob/master/hy/lex/parser.py).
+The `ParserGenerator` from rply uses the rules defined in the lexer and enables to defines other rules (called production rules) to handle the parsing of the tokens, see [`hy.lex.parser`](https://github.com/hylang/hy/blob/master/hy/lex/parser.py).
 Example of a production rule for handling strings:
 ```Python
 @pg.production("string : STRING")
@@ -223,17 +236,17 @@ Using the generated lexer and parser, here are examples of returned tokens:
 
 ```
 
-**Step 3: Hy AST -> Python AST**
+**Hy AST -> Python AST**
 
 The method [`HyASTCompiler.compile`](https://github.com/hylang/hy/blob/master/hy/compiler.py#L430) is called on the Hy models.
 It try to get the type by seing if any methods that can build the `type()`. For the example of a string Hy AST is easily mapped to Python AST.
 The `compile_string` method takes the input `HyString`, and returns an `ast.Str()`.
 
-**Step 4: Compilation to Python bytecode**
+**Compilation to Python bytecode**
 
-Once the Python AST is complete.
+Once the Python AST is complete, it is compiled to Python bytecode usin the [`eval()`](https://docs.python.org/2/library/functions.html#eval) function.
 
-### Other features
+### Macros
 
 
 ____
@@ -247,7 +260,7 @@ ____
 * [Podcast.\_\_init\_\_ episode 23](http://pythonpodcast.com/hylang-developers.html)
 * [Videos and blogposts](https://gist.github.com/Foxboron/4b87b5b85d6c5fc5db6c)
 * [Compiler](https://en.wikipedia.org/wiki/Compiler) wikipedia page
-
+* [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) wikipedia page
 
 #### Tools:
 * [Emacs Hy-mode](https://github.com/hylang/hy-mode)
