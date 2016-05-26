@@ -304,6 +304,7 @@ ____
 #### References:
 
 * [Lisp](https://en.wikipedia.org/wiki/Lisp_%28programming_language%29) wikipedia page
+* [Why Lisp?](http://www.gigamonkeys.com/book/introduction-why-lisp.html)
 * More on [(Common) Lisp](http://www.gigamonkeys.com/book/syntax-and-semantics.html)
 * [Hy's docs](http://docs.hylang.org/en/latest/)
 * [More docs](https://github.com/hylang/hy/blob/master/docs/language/api.rst)
