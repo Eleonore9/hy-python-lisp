@@ -1,6 +1,8 @@
 # (= Hy (+ Python Lisp))
 
-Spreading parens <3 with Python
+#### Spreading parens <3 with Python
+
+For more background on this project, check [this](/intro.md).
 
 Look at that CUTE mascot by [Karen Rustad Tölva](https://twitter.com/whoisaldeka):
 ![cuddles](img/cuddles-transparent-small.png)
@@ -319,5 +321,6 @@ ____
 #### Tools:
 * [Emacs Hy-mode](https://github.com/hylang/hy-mode)
 * [Vim-hy](https://github.com/hylang/vim-hy)
+* [Jupyter kernel for Hy](https://github.com/bollwyvl/hy_kernel/)
 * [Code analyser](https://github.com/hylang/hydiomatic)
 * [Hy debugger](https://github.com/hylang/hdb)
