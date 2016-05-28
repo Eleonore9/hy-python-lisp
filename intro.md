@@ -35,7 +35,7 @@ Weird because my brain still struggles to associate Lisp syntax with Python code
 
 *Tl;dr: [docs.hylang.org/en/latest/](http://docs.hylang.org/en/latest/)*
 
-The README.md and poster have mostly been written with the help of the [Hy documentation](http://docs.hylang.org/en/latest/), looking at some of [Hy source code](https://github.com/hylang/hy), writing some Hy code using [Hy-mode](https://github.com/hylang/hy-mode) in Emacs and the nrepl (also go [Paredit]()!). I also used the resources I added to the ["References"](/README.md#references) section.
+The README.md and poster have mostly been written with the help of the [Hy documentation](http://docs.hylang.org/en/latest/), looking at some of [Hy source code](https://github.com/hylang/hy), writing some Hy code using [Hy-mode](https://github.com/hylang/hy-mode) in Emacs and the nrepl (also go [Paredit](http://wikemacs.org/wiki/Paredit-mode)!). I also used the resources I added to the ["References"](/README.md#references) section.
 
 If you're not an Emacs user there's also a Vim plugin and a Jupyter kernel for Hy!
 Check [here](/README.md#tools).
