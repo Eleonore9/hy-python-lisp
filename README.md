@@ -180,6 +180,9 @@ $~ ./text_analysis.hy "data"
 Hy compiles down to Python bytecode.
 It is first translated to a Python AST and then built into Python bytecode.
 
+![diagram](img/diagram_compilation.png)
+
+
 #### Some definitions
 **Basic steps of compilation:**
 Lexing → lexical analysis: breaks up the code into tokens
