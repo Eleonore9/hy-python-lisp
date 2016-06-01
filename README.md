@@ -2,7 +2,7 @@
 
 #### Spreading parens <3 with Python
 
-For more background on this project, check [this](/intro.md).
+**-> For more background on this project, check [this](/INTRO.md).**
 
 Look at that CUTE mascot by [Karen Rustad Tölva](https://twitter.com/whoisaldeka):
 ![cuddles](img/cuddles-transparent-small.png)
